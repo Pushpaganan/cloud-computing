@@ -1,0 +1,42 @@
+name: Deploy Next.js app to Azure Web App - nextk6demo92358
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.x"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Next.js standalone app
+        run: npm run build
+
+      - name: Prepare deployment package
+        run: |
+          rm -rf .publish
+          mkdir -p .publish/.next
+          cp -R .next/standalone/* .publish/
+          cp -R .next/static .publish/.next/
+          if [ -d public ]; then cp -R public .publish/; fi
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: nextk6demo92358
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: .publish
