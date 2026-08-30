@@ -29,7 +29,7 @@ jobs:
         run: |
           rm -rf .publish
           mkdir -p .publish/.next
-          cp -R .next/standalone/* .publish/
+          cp -R .next/standalone/. .publish/
           cp -R .next/static .publish/.next/
           if [ -d public ]; then cp -R public .publish/; fi
 
