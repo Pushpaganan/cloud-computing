@@ -37,7 +37,7 @@ export default function LivePage() {
 
   return (
     <main className="mx-auto w-full max-w-2xl px-6 py-16">
-      <h1 className="text-3xl font-bold">Live Audience Counter</h1>
+      <h1 className="text-3xl font-bold">Live Audience Counter from local:</h1>
       <p className="mt-3 text-gray-600">Active users in the last 30 seconds</p>
 
       <div className="mt-8 rounded-2xl border p-8">
